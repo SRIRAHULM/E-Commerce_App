@@ -179,9 +179,12 @@ public class App
                     					switch(Integer.parseInt(br.readLine())) {
                     						case 1:
                     							String yesOrNoValue_3 = "yes";
+                    							Product updateProductObject = null;
                     							do {
-                    								Product newProductObject = new Product();
-                                					createproduct(newProductObject);
+                    								System.out.println("Enter the Product Name");
+                                					String updateProductName = br.readLine();
+                                					//updateProductObject = productBO.checkProduct(updateProductName);
+                    								updateProduct(updateProductObject);
                                 					System.out.println("Do you want to create another Product");
                                 					yesOrNoValue_3 = br.readLine();
                     							}while(yesOrNoValue_3.equalsIgnoreCase("yes"));
@@ -228,6 +231,29 @@ public class App
     		
     	}while(userRoll==null);	
     }
+
+	private static void updateProduct(Product updateProductObject) throws Exception {
+		switch(Integer.parseInt(br.readLine())) {
+		case 1:
+			
+			break;
+		case 2:
+			
+			break;
+		case 3:
+			
+			break;
+		case 4:
+			
+			break;
+		case 5:
+			
+			break;
+		default:
+			System.out.println("404 ERROR");
+		}
+		
+	}
 
 	private static void createproduct(Product newProductObject) throws Exception {
 		

@@ -2,8 +2,10 @@ package javaDemo.E_com_BO;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.List;
 
 import javaDemo.E_com.Product;
+import javaDemo.E_com.User;
 import javaDemo.E_com_DAO.ProductDAO;
 
 public class ProductBO {
@@ -27,4 +29,15 @@ public class ProductBO {
         }
     }
 
+	/*public Product checkProduct(String updateProductName) {
+		List<Product> userList= productDAO.list();
+	     User upateUserObject = null;
+	     for(int i=0; i<userList.size();i++) {
+	        if((updateUserName.equals(userList.get(i).getUserName()))) {
+	        	upateUserObject =  userList.get(i);
+	        }
+	     }
+		return upateUserObject;
+	}
+*/
 }

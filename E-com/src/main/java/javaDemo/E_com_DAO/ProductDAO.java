@@ -1,5 +1,8 @@
 package javaDemo.E_com_DAO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -8,6 +11,7 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
 import javaDemo.E_com.Product;
+import javaDemo.E_com.User;
 
 public class ProductDAO {
 	
@@ -23,6 +27,19 @@ public class ProductDAO {
         tx.commit();
         session.close();
 		
+	}
+
+	public List<Product> list() {
+		
+		SessionFactory sf = con.buildSessionFactory(reg);
+        Session session = sf.openSession();
+        Transaction tx = session.beginTransaction();
+    	
+        List<Product> stallList = new ArrayList<Product>();
+        stallList=(List<Product>) session.createCriteria(Product.class).list();
+        tx.commit();
+        session.close();
+        return stallList;
 	}
 	
 	
