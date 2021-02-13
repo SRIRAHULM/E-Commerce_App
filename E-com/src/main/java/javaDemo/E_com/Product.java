@@ -25,16 +25,20 @@ public class Product {
 	@Column(name ="Brand")
 	private String Brand;
 	
+	@Column(name ="quantity")
+	private Integer Quantity;
+	
 	public Product(){
 		
 	}
 	
-	public Product(String name, Double price, String colour, String brand) {
+	public Product(String name, Double price, String colour, String brand, Integer Quantity) {
 		
 		this.name = name;
 		this.price = price;
 		this.colour = colour;
 		this.Brand = brand;
+		this.Quantity = Quantity;
 	}
 	
 	public Long getId() {
@@ -70,6 +74,13 @@ public class Product {
 	}
 	public void setBrand(String brand) {
 		Brand = brand;
+	}
+	public Integer getQuantity() {
+		return Quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		Quantity = quantity;
 	}
 	
 }

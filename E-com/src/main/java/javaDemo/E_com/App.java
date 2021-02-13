@@ -14,7 +14,7 @@ public class App
 	public static void main( String[] args ) throws Exception
     {
 		
-		//initialDataBaseUpdate(userBO,addressBO);
+		//initialDataBaseUpdate();
     	
     	String userRoll = null;
         
@@ -98,7 +98,7 @@ public class App
                     							}while(yesOrNoValue_4.equalsIgnoreCase("yes"));
                             					break;
                     					}
-            							
+                    					break;
             					}
             					
             					break;
@@ -173,6 +173,31 @@ public class App
                     					break;
                     				
             						case 3:
+            							System.out.println("1. Single Update\t\t"
+                            					+ "2. Bulk Update\t\t");
+                    					
+                    					switch(Integer.parseInt(br.readLine())) {
+                    						case 1:
+                    							String yesOrNoValue_3 = "yes";
+                    							do {
+                    								Product newProductObject = new Product();
+                                					createproduct(newProductObject);
+                                					System.out.println("Do you want to create another Product");
+                                					yesOrNoValue_3 = br.readLine();
+                    							}while(yesOrNoValue_3.equalsIgnoreCase("yes"));
+                            					break;
+                    						case 2:
+                    							String yesOrNoValue_4 = "yes";
+                    							do {
+                    							    
+                    							    BufferedReader brFile=new BufferedReader(new FileReader("C:\\Users\\Amphisoft\\eclipse-workspace\\E-com\\src\\main\\java\\file.csv"));
+                    							    productBO.fileUpload(brFile);
+                                					System.out.println("Do you want to create another Product");
+                                					yesOrNoValue_4 = br.readLine();
+                    							}while(yesOrNoValue_4.equalsIgnoreCase("yes"));
+                            					break;
+                    					}
+                    					break;
             							
             					}
             					break;
@@ -218,6 +243,9 @@ public class App
  		System.out.println("Product Price");
  		Double productPrice = Double.parseDouble(br.readLine());
  		newProductObject.setPrice(productPrice);
+ 		System.out.println("Product Quantity");
+ 		Integer productQuantity = Integer.parseInt(br.readLine());
+ 		newProductObject.setQuantity(productQuantity);
  		
  		productBO.create(newProductObject);
  		

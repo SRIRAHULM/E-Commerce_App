@@ -19,9 +19,9 @@ public class ProductBO {
         while((line=br.readLine())!= null)
         {
             String arr[]=line.split(",");
-            if(arr.length==4)
+            if(arr.length==5)
             {
-            	Product productObject=new Product(arr[0],Double.parseDouble(arr[1]),arr[2],arr[3]);
+            	Product productObject=new Product(arr[0],Double.parseDouble(arr[1]),arr[2],arr[3],Integer.parseInt(arr[4]));
             	productDAO.create(productObject);
             }
         }
