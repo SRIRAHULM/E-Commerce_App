@@ -4,30 +4,41 @@ import java.io.*;
 import javaDemo.E_com_BO.AddressBO;
 import javaDemo.E_com_BO.ProductBO;
 import javaDemo.E_com_BO.UserBO;
+import javaDemo.E_com_DAO.AddressDAO;
+import javaDemo.E_com_DAO.UserDAO;
 
 public class App 
 {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     static UserBO userBO = new UserBO();
     static AddressBO addressBO = new AddressBO();
-    static ProductBO productBO = new ProductBO();
-	public static void main( String[] args ) throws Exception
+	static ProductBO productBO = new ProductBO();
+	
+	public static void main(String[] args ) throws Exception
     {
 		
 		//initialDataBaseUpdate();
     	
-    	String userRoll = null;
+    	
+    	String userRoll ;
         
     	do {
     		userRoll = login();
-    		
+    		Integer adminOrCustom = 0;
     		if(userRoll==null) {
     			System.out.println("Cannot find User Name or Password");
     		}
     		
     		else {
-    			switch(userRoll) {
-            		case "ADMIN":
+				if(userRoll.equalsIgnoreCase("ADMIN")) {
+					adminOrCustom = 1;
+				}
+				else if(userRoll.equalsIgnoreCase("CUSTOMER")) {
+					adminOrCustom = 2;
+				}
+    			do {
+    				switch(adminOrCustom) {
+            		case 1:
             			System.out.println("1. Create\t\t"
             					+ "2. Update\t\t"
             					+ "3. Delete\n\n"
@@ -91,7 +102,7 @@ public class App
                     							String yesOrNoValue_4 = "yes";
                     							do {
                     							    
-                    							    BufferedReader brFile=new BufferedReader(new FileReader("C:\\Users\\Amphisoft\\eclipse-workspace\\E-com\\src\\main\\java\\file.csv"));
+                    							    BufferedReader brFile=new BufferedReader(new FileReader("C:\\Users\\Amphisoft\\git\\E-Commerce_App\\E-com\\src\\main\\java\\file.csv"));
                     							    productBO.fileUpload(brFile);
                                 					System.out.println("Do you want to create another Product");
                                 					yesOrNoValue_4 = br.readLine();
@@ -158,7 +169,7 @@ public class App
                     								for(int i=0 ; i< updateuserObject_2.getListOfAddress().size();i++) {
                             							System.out.println((i+1) +" .");
                             							System.out.println(updateuserObject_2.getListOfAddress().get(i));
-                            							System.out.println("_____________________________________");
+                            							System.out.println("==========================================");
                             						}
                             						System.out.println("Which Address do you want to change");
                             						Integer addressChangeChoise = Integer.parseInt(br.readLine());
@@ -175,7 +186,7 @@ public class App
             						case 3:
             							System.out.println("1. Single Update\t\t"
                             					+ "2. Bulk Update\t\t");
-                    					
+            							
                     					switch(Integer.parseInt(br.readLine())) {
                     						case 1:
                     							String yesOrNoValue_3 = "yes";
@@ -183,8 +194,11 @@ public class App
                     							do {
                     								System.out.println("Enter the Product Name");
                                 					String updateProductName = br.readLine();
-                                					//updateProductObject = productBO.checkProduct(updateProductName);
-                    								updateProduct(updateProductObject);
+                                					updateProductObject = productBO.checkProduct(updateProductName);
+													System.out.println("Select the field to be update\n1. Name\n2. Price\n3. Brand\n"
+                        								+ "4. Quantity\n5. Colour\n6.ALL");
+													updateProduct(updateProductObject);
+													System.out.println("Product Created Successfully");
                                 					System.out.println("Do you want to create another Product");
                                 					yesOrNoValue_3 = br.readLine();
                     							}while(yesOrNoValue_3.equalsIgnoreCase("yes"));
@@ -192,9 +206,9 @@ public class App
                     						case 2:
                     							String yesOrNoValue_4 = "yes";
                     							do {
-                    							    
-                    							    BufferedReader brFile=new BufferedReader(new FileReader("C:\\Users\\Amphisoft\\eclipse-workspace\\E-com\\src\\main\\java\\file.csv"));
+                    							    BufferedReader brFile=new BufferedReader(new FileReader("C:\\Users\\Amphisoft\\git\\E-Commerce_App\\E-com\\src\\main\\java\\file.csv"));
                     							    productBO.fileUpload(brFile);
+                    							    System.out.println("File Uploaded Successfully");
                                 					System.out.println("Do you want to create another Product");
                                 					yesOrNoValue_4 = br.readLine();
                     							}while(yesOrNoValue_4.equalsIgnoreCase("yes"));
@@ -226,33 +240,71 @@ public class App
             					
             					
             			}
+            		case 2:
+            			
     			}
+    			}while(true);
     		}	
     		
-    	}while(userRoll==null);	
+    	}while(userRoll==null);
+	
     }
 
 	private static void updateProduct(Product updateProductObject) throws Exception {
+		
 		switch(Integer.parseInt(br.readLine())) {
 		case 1:
-			
+			getProductName(updateProductObject);
 			break;
 		case 2:
-			
+			getProductPrice(updateProductObject);
 			break;
 		case 3:
-			
+			getProductBrandName(updateProductObject);
 			break;
 		case 4:
-			
+			getProductQuantity(updateProductObject);
 			break;
 		case 5:
-			
+			getProductColour(updateProductObject);
+			break;
+		case 6:
+			createproduct(updateProductObject);
 			break;
 		default:
 			System.out.println("404 ERROR");
 		}
-		
+		productBO.create(updateProductObject);
+	}
+
+	private static void getProductColour(Product updateProductObject)throws Exception {
+		System.out.println("Colour");
+ 		String colour = br.readLine();
+ 		updateProductObject.setColour(colour);
+	}
+
+	private static void getProductQuantity(Product updateProductObject) throws Exception {
+		System.out.println("Product Quantity");
+ 		Integer productQuantity = Integer.parseInt(br.readLine());
+ 		updateProductObject.setQuantity(productQuantity);
+	}
+
+	private static void getProductPrice(Product updateProductObject)throws Exception {
+		System.out.println("Product Price");
+ 		Double productPrice = Double.parseDouble(br.readLine());
+ 		updateProductObject.setPrice(productPrice);
+	}
+
+	private static void getProductName(Product updateProductObject) throws Exception {
+		System.out.println("Product Name");
+		String newProductName = br.readLine();
+		updateProductObject.setName(newProductName);
+	}
+
+	private static void getProductBrandName(Product updateProductObject) throws Exception {
+		System.out.println("Product Name");
+		String newProductBrandName = br.readLine();
+		updateProductObject.setName(newProductBrandName);
 	}
 
 	private static void createproduct(Product newProductObject) throws Exception {
@@ -328,7 +380,8 @@ public class App
  		System.out.println("Pincode");
  		String newPincode = br.readLine();
  		newAdddressObject.setPincode(newPincode);
-
+ 		
+ 		newAdddressObject.setUser(newUserObject);
  		addressBO.create(newAdddressObject);
  		return newAdddressObject;
 		
@@ -471,7 +524,7 @@ public class App
 	private static void initialDataBaseUpdate() throws Exception {
 		
 		User userObject_1 = new User("Sri","sri@abc.com","9098765432","sri","sri","ADMIN");
-		User userObject_2 = new User("Rahul","sri@abc.com","9098765432","rahul","rahul","CUSTOMER");
+		User userObject_2 = new User("Rahul","sri@abc.com","9098765432","Rahul","rahul","CUSTOMER");
 		
 		Address addressObject_1 = new Address("1st Street","Ganabathy", "Coimbatore","Tamilnadu","landmark","76818", userObject_1);
 		Address addressObject_2 = new Address("2nd Street","Ganabathy", "Coimbatore","Tamilnadu","landmark","76818", userObject_2);

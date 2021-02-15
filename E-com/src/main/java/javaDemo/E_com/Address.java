@@ -111,6 +111,11 @@ public class Address {
 	
 	@Override
 	public String toString() {
-		return this.addressLine1 + ", " + this.addressLine2 + ", " + this.city;
+		return "Address Line-1 -->" + this.addressLine1 + "\n " 
+		+ "Address Line-2 -->" + this.addressLine2 + "\n " 
+		+ "City -->" + this.city + "\n " 
+		+ "State -->" + this.state + "\n " 
+		+ "Landmark -->" + this.landmark + "\n " 
+		+ "Pincode -->" + this.pincode + "\n "  ;
 	}
 }

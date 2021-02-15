@@ -1,12 +1,21 @@
 package javaDemo.E_com;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
+@Table(
+        uniqueConstraints=
+            @UniqueConstraint(columnNames={"name"})
+    )
 public class Product {
 	
 	@Id
@@ -27,20 +36,41 @@ public class Product {
 	
 	@Column(name ="quantity")
 	private Integer Quantity;
+
+	@Column(name ="rating")
+	private Double Rating;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "product_type")
+	private ProductType productType;
+
+	
 	
 	public Product(){
 		
 	}
-	
-	public Product(String name, Double price, String colour, String brand, Integer Quantity) {
 		
+	public Product(String name, Double price, String colour, String brand, Integer quantity,
+			ProductType productType) {
+		super();
 		this.name = name;
 		this.price = price;
 		this.colour = colour;
-		this.Brand = brand;
-		this.Quantity = Quantity;
+		Brand = brand;
+		Quantity = quantity;
+		this.productType = productType;
 	}
-	
+
+
+
+	public ProductType getProductType() {
+		return productType;
+	}
+
+	public void setProductType(ProductType productType) {
+		this.productType = productType;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -82,5 +112,14 @@ public class Product {
 	public void setQuantity(Integer quantity) {
 		Quantity = quantity;
 	}
+
+	public Double getRating() {
+		return Rating ;
+	}
+
+	public void setRating(Double Rating) {
+		this.Rating = Rating;
+	}
+	
 	
 }

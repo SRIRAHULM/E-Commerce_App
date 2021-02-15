@@ -19,6 +19,7 @@
         <mapping class="javaDemo.E_com.PurchaseOrderItem"/>
         <mapping class="javaDemo.E_com.Product"/>
         <mapping class="javaDemo.E_com.Rating"/>
+        <mapping class="javaDemo.E_com.ProductType"/>
         
     </session-factory>
 </hibernate-configuration>

@@ -11,7 +11,6 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
 import javaDemo.E_com.Product;
-import javaDemo.E_com.User;
 
 public class ProductDAO {
 	
@@ -27,8 +26,9 @@ public class ProductDAO {
         tx.commit();
         session.close();
 		
-	}
-
+    }
+    
+    @SuppressWarnings("unchecked")
 	public List<Product> list() {
 		
 		SessionFactory sf = con.buildSessionFactory(reg);
