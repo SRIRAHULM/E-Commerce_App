@@ -24,269 +24,273 @@ public class App {
 		do {
 			// call login function to get user name
 			userRoll = login();
+			try {
+				
+				Integer adminOrCustom = 0;
 
-			Integer adminOrCustom = 0;
+				if (userRoll == null) {
+					System.out.println("Cannot find User Name or Password");
+				} else {
+					if (userRoll.equalsIgnoreCase("ADMIN")) {
+						adminOrCustom = 1;
+					} else if (userRoll.equalsIgnoreCase("CUSTOMER")) {
+						adminOrCustom = 2;
+					}
+					do {
+						switch (adminOrCustom) {
+							case 1:
+								System.out.println("1. Create\t\t" + "2. Update\t\t" + "3. Delete\n\n" + "LOG OUT");
 
-			if (userRoll == null) {
-				System.out.println("Cannot find User Name or Password");
-			} else {
-				if (userRoll.equalsIgnoreCase("ADMIN")) {
-					adminOrCustom = 1;
-				} else if (userRoll.equalsIgnoreCase("CUSTOMER")) {
-					adminOrCustom = 2;
-				}
-				do {
-					switch (adminOrCustom) {
-						case 1:
-							System.out.println("1. Create\t\t" + "2. Update\t\t" + "3. Delete\n\n" + "LOG OUT");
+								switch (Integer.parseInt(br.readLine())) {
+									case 1:
+										
+										System.out.println("1. User\t\t" + "2. Address\t\t" + "3. Product\t\t");
+										
+										switch (Integer.parseInt(br.readLine())) {
 
-							switch (Integer.parseInt(br.readLine())) {
-								case 1:
-									
-									System.out.println("1. User\t\t" + "2. Address\t\t" + "3. Product\t\t");
-									
-									switch (Integer.parseInt(br.readLine())) {
+											case 1:
+												String yesOrNo_Value_createUser = "yes";
+												do {
+													User newUserObject = new User();
+													createUser(newUserObject);
+													System.out.println("User Created Successfully");
+													System.out.println("Do you want to create another User");
+													yesOrNo_Value_createUser = br.readLine();
+												} while (yesOrNo_Value_createUser.equalsIgnoreCase("yes"));
+												break;
 
-										case 1:
-											String yesOrNo_Value_createUser = "yes";
-											do {
-												User newUserObject = new User();
-												createUser(newUserObject);
-												System.out.println("User Created Successfully");
-												System.out.println("Do you want to create another User");
-												yesOrNo_Value_createUser = br.readLine();
-											} while (yesOrNo_Value_createUser.equalsIgnoreCase("yes"));
-											break;
+											case 2:
 
-										case 2:
+												String yesOrNo_Value_createProduct = "yes";
+												User updateuserObject_1 = null;
+												do {
+													System.out.println("Enter the User Name of the User");
+													String updateUserName_1 = br.readLine();
+													updateuserObject_1 = userBO.checkUser(updateUserName_1);
 
-											String yesOrNo_Value_createProduct = "yes";
-											User updateuserObject_1 = null;
-											do {
-												System.out.println("Enter the User Name of the User");
-												String updateUserName_1 = br.readLine();
-												updateuserObject_1 = userBO.checkUser(updateUserName_1);
-
-												if (updateuserObject_1 == null) {
-													System.out.println("No Users Found");
-												} else {
-
-													createAddress(updateuserObject_1, new Address());
-													userBO.create(updateuserObject_1);
-													System.out.println("Address Created Successfully");
-													System.out.println("Do you want to create another Address");
-													yesOrNo_Value_createProduct = br.readLine();
-												}
-
-											} while (yesOrNo_Value_createProduct.equalsIgnoreCase("yes")
-													|| updateuserObject_1 == null);
-											break;
-										case 3:
-											System.out.println("1. Single Upload\t\t" + "2. Bulk Upload\t\t");
-
-											switch (Integer.parseInt(br.readLine())) {
-												case 1:
-													String yesOrNoValue_3 = "yes";
-													do {
-														Product newProductObject = new Product();
-														createproduct(newProductObject);
-														System.out.println("Do you want to create another Product");
-														yesOrNoValue_3 = br.readLine();
-													} while (yesOrNoValue_3.equalsIgnoreCase("yes"));
-													break;
-												case 2:
-													String yesOrNoValue_4 = "yes";
-													do {
-
-														BufferedReader brFile = new BufferedReader(new FileReader(
-																"C:\\Users\\Amphisoft\\git\\E-Commerce_App\\E-com\\src\\main\\java\\file.csv"));
-														productBO.fileUpload(brFile);
-														System.out.println("Do you want to create another Product");
-														yesOrNoValue_4 = br.readLine();
-													} while (yesOrNoValue_4.equalsIgnoreCase("yes"));
-													break;
-											}
-											break;
-									}
-									break;
-								
-
-								case 2:
-									System.out.println("1. User\t\t" + "2. Address\t\t" + "3. Product\t\t");
-
-									switch (Integer.parseInt(br.readLine())) {
-										case 1:
-											String yesOrNoValue_5 = "yes";
-											User updateuserObject = null;
-											do {
-												System.out.println("Enter the User Name of the User");
-												String updateUserName = br.readLine();
-												updateuserObject = userBO.checkUser(updateUserName);
-
-												if (updateuserObject == null) {
-													System.out.println("No Users Found");
-												} else {
-													System.out.println(
-															"Select the field to be update\n1. Name\n2. E-Mail\n3. User Name\n"
-																	+ "4. Mobile Number\n5. Password\n6. Roll\n7.ALL");
-													updateUser(updateuserObject);
-													System.out.println("Do you want to change any other field");
-													yesOrNoValue_5 = br.readLine();
-												}
-											} while (yesOrNoValue_5.equalsIgnoreCase("yes")
-													|| updateuserObject == null);
-											break;
-
-										case 2:
-
-											String yesOrNoValue_6 = "yes", yesOrNoValue_7 = "yes";
-											User updateuserObject_2 = null;
-											do {
-												System.out.println("Enter the User Name of the User");
-												String updateUserName_2 = br.readLine();
-												updateuserObject_2 = userBO.checkUser(updateUserName_2);
-
-												if (updateuserObject_2 == null) {
-													System.out.println("No Users Found");
-												} else {
-													if (updateuserObject_2.getListOfAddress().size() == 0) {
-														System.out.println("No Address Found\n");
-														System.out.println("Do you want to create new address");
-														yesOrNoValue_7 = br.readLine();
-														if (yesOrNoValue_7.equalsIgnoreCase("yes")) {
-															createAddress(updateuserObject_2, new Address());
-															userBO.create(updateuserObject_2);
-														}
-														System.out.println("Do you want to change any other Address");
-														yesOrNoValue_6 = br.readLine();
+													if (updateuserObject_1 == null) {
+														System.out.println("No Users Found");
 													} else {
-														for (int i = 0; i < updateuserObject_2.getListOfAddress()
-																.size(); i++) {
-															System.out.println((i + 1) + " .");
-															System.out.println(
-																	updateuserObject_2.getListOfAddress().get(i));
-															System.out.println(
-																	"==========================================");
-														}
-														System.out.println("Which Address do you want to change");
-														Integer addressChangeChoise = Integer.parseInt(br.readLine());
-														createAddress(updateuserObject_2, updateuserObject_2
-																.getListOfAddress().get(addressChangeChoise - 1));
-														userBO.create(updateuserObject_2);
-														System.out.println("Do you want to change any other Address");
-														yesOrNoValue_6 = br.readLine();
+
+														createAddress(updateuserObject_1, new Address());
+														userBO.create(updateuserObject_1);
+														System.out.println("Address Created Successfully");
+														System.out.println("Do you want to create another Address");
+														yesOrNo_Value_createProduct = br.readLine();
 													}
 
-												}
-											} while (yesOrNoValue_6.equalsIgnoreCase("yes")
-													|| updateuserObject_2 == null
-													|| updateuserObject_2.getListOfAddress().size() == 0);
-											break;
+												} while (yesOrNo_Value_createProduct.equalsIgnoreCase("yes")
+														|| updateuserObject_1 == null);
+												break;
+											case 3:
+												System.out.println("1. Single Upload\t\t" + "2. Bulk Upload\t\t");
 
-										case 3:
-											System.out.println("1. Single Update\t\t" + "2. Bulk Update\t\t " +"3. Update Stock of the Product");
-
-											switch (Integer.parseInt(br.readLine())) {
-												case 1:
-													String yesOrNoValue_3 = "yes";
-													Product updateProductObject = null;
-													do {
-														System.out.println("Enter the Product Name");
-														String updateProductName = br.readLine();
-														updateProductObject = productBO.checkProduct(updateProductName);
-														if(updateProductObject!=null) {
-															System.out.println(
-																	"Select the field to be update\n1. Name\n2. Price\n3. Brand\n"
-																			+ "4. Quantity\n5. Colour\n6.ProductType\n7.ALL");
-															updateProduct(updateProductObject);
-															System.out.println("Product Created Successfully");
-															System.out.println("Do you want to update another Product");
+												switch (Integer.parseInt(br.readLine())) {
+													case 1:
+														String yesOrNoValue_3 = "yes";
+														do {
+															Product newProductObject = new Product();
+															createproduct(newProductObject);
+															System.out.println("Do you want to create another Product");
 															yesOrNoValue_3 = br.readLine();
-														}
-														else {
-															System.out.println("No Product Found");
-														}
-														
-													} while (yesOrNoValue_3.equalsIgnoreCase("yes"));
-													break;
-												case 2:
-													String yesOrNoValue_4 = "yes";
-													do {
-														BufferedReader brFile = new BufferedReader(new FileReader(
-																"C:\\Users\\Amphisoft\\git\\E-Commerce_App\\E-com\\src\\main\\java\\file.csv"));
-														productBO.fileUpload(brFile);
-														System.out.println("File Uploaded Successfully");
-														System.out.println("Do you want to create another Product");
-														yesOrNoValue_4 = br.readLine();
-													} while (yesOrNoValue_4.equalsIgnoreCase("yes"));
-													break;
-												case 3:
-													String yesOrNoValue_9 = "yes";
-													Product updateProductObject_5 = null;
-													do {
-														System.out.println("Enter the Product Name");
-														String updateProductName = br.readLine();
-														updateProductObject_5 = productBO.checkProduct(updateProductName);
-														if(updateProductObject_5!=null) {
-															getProductQuantity(updateProductObject_5);
-															System.out.println("Product Created Successfully");
-															System.out.println("Do you want to update another Product");
-															yesOrNoValue_9 = br.readLine();
-														}
-														else {
-															System.out.println("No Product Found");
-														}
-														
-													} while (yesOrNoValue_9.equalsIgnoreCase("yes"));
-													break;
-											}
-											break;
+														} while (yesOrNoValue_3.equalsIgnoreCase("yes"));
+														break;
+													case 2:
+														String yesOrNoValue_4 = "yes";
+														do {
 
-									}
-									break;
-								case 3:
-									System.out.println("1. User\t\t" + "2. Address\t\t" + "3. Product\t\t");
-
-									switch (Integer.parseInt(br.readLine())) {
-										case 1:
-											User deleteUserObject_2 = null;
-											String deleteUserName_2 = br.readLine();
-											deleteUserObject_2 = userBO.checkUser(deleteUserName_2);
-											userBO.delete(deleteUserObject_2);
-											break;
-
-									}
-									break;
-
-								default:
-									System.out.println("Session Closed ! !");
-									System.exit(0);
-							}
-							break;
-						case 2:
-							System.out.println("1. Purchasing multiple products\r\n"
-									+ "2. Showing Purchase History\r\n"
-									+ "3. Show Product wise Purchase history\r\n"
-									+ "4. Rate a Product\r\n"
-									+ "5. See ratings for a product");
-							
-							switch(Integer.parseInt(br.readLine())) {
-								case 1:
-									List<ProductType> productTypeList = productTypeBO.list();
-									for(int i=0;i<productTypeList.size();i++) {
-										System.out.println(productTypeList.get(i).getName());
-									}
-									Integer productTypechoise = Integer.parseInt(br.readLine());
-									for(int i=0;i<productTypeList.get(productTypechoise).getProductList().size();i++) {
-										System.out.println(productTypeList.get(productTypechoise).getProductList().get(i).getName());
-									}
+															BufferedReader brFile = new BufferedReader(new FileReader(
+																	"C:\\Users\\Amphisoft\\git\\E-Commerce_App\\E-com\\src\\main\\java\\ProductList.csv"));
+															productBO.fileUpload(brFile);
+															System.out.println("Do you want to create another Product");
+															yesOrNoValue_4 = br.readLine();
+														} while (yesOrNoValue_4.equalsIgnoreCase("yes"));
+														break;
+												}
+												break;
+										}
+										break;
 									
-									 
-;							}
-					}
-				} while (true);
-			}
 
+									case 2:
+										System.out.println("1. User\t\t" + "2. Address\t\t" + "3. Product\t\t");
+
+										switch (Integer.parseInt(br.readLine())) {
+											case 1:
+												String yesOrNoValue_5 = "yes";
+												User updateuserObject = null;
+												do {
+													System.out.println("Enter the User Name of the User");
+													String updateUserName = br.readLine();
+													updateuserObject = userBO.checkUser(updateUserName);
+
+													if (updateuserObject == null) {
+														System.out.println("No Users Found");
+													} else {
+														System.out.println(
+																"Select the field to be update\n1. Name\n2. E-Mail\n3. User Name\n"
+																		+ "4. Mobile Number\n5. Password\n6. Roll\n7.ALL");
+														updateUser(updateuserObject);
+														System.out.println("Do you want to change any other field");
+														yesOrNoValue_5 = br.readLine();
+													}
+												} while (yesOrNoValue_5.equalsIgnoreCase("yes")
+														|| updateuserObject == null);
+												break;
+
+											case 2:
+
+												String yesOrNoValue_6 = "yes", yesOrNoValue_7 = "yes";
+												User updateuserObject_2 = null;
+												do {
+													System.out.println("Enter the User Name of the User");
+													String updateUserName_2 = br.readLine();
+													updateuserObject_2 = userBO.checkUser(updateUserName_2);
+
+													if (updateuserObject_2 == null) {
+														System.out.println("No Users Found");
+													} else {
+														if (updateuserObject_2.getListOfAddress().size() == 0) {
+															System.out.println("No Address Found\n");
+															System.out.println("Do you want to create new address");
+															yesOrNoValue_7 = br.readLine();
+															if (yesOrNoValue_7.equalsIgnoreCase("yes")) {
+																createAddress(updateuserObject_2, new Address());
+																userBO.create(updateuserObject_2);
+															}
+															System.out.println("Do you want to change any other Address");
+															yesOrNoValue_6 = br.readLine();
+														} else {
+															for (int i = 0; i < updateuserObject_2.getListOfAddress()
+																	.size(); i++) {
+																System.out.println((i + 1) + " .");
+																System.out.println(
+																		updateuserObject_2.getListOfAddress().get(i));
+																System.out.println(
+																		"==========================================");
+															}
+															System.out.println("Which Address do you want to change");
+															Integer addressChangeChoise = Integer.parseInt(br.readLine());
+															createAddress(updateuserObject_2, updateuserObject_2
+																	.getListOfAddress().get(addressChangeChoise - 1));
+															userBO.create(updateuserObject_2);
+															System.out.println("Do you want to change any other Address");
+															yesOrNoValue_6 = br.readLine();
+														}
+
+													}
+												} while (yesOrNoValue_6.equalsIgnoreCase("yes")
+														|| updateuserObject_2 == null
+														|| updateuserObject_2.getListOfAddress().size() == 0);
+												break;
+
+											case 3:
+												System.out.println("1. Single Update\t\t" + "2. Bulk Update\t\t " +"3. Update Stock of the Product");
+
+												switch (Integer.parseInt(br.readLine())) {
+													case 1:
+														String yesOrNoValue_3 = "yes";
+														Product updateProductObject = null;
+														do {
+															System.out.println("Enter the Product Name");
+															String updateProductName = br.readLine();
+															updateProductObject = productBO.checkProduct(updateProductName);
+															if(updateProductObject!=null) {
+																System.out.println(
+																		"Select the field to be update\n1. Name\n2. Price\n3. Brand\n"
+																				+ "4. Quantity\n5. Colour\n6.ProductType\n7.ALL");
+																updateProduct(updateProductObject);
+																System.out.println("Product Created Successfully");
+																System.out.println("Do you want to update another Product");
+																yesOrNoValue_3 = br.readLine();
+															}
+															else {
+																System.out.println("No Product Found");
+															}
+															
+														} while (yesOrNoValue_3.equalsIgnoreCase("yes"));
+														break;
+													case 2:
+														String yesOrNoValue_4 = "yes";
+														do {
+															BufferedReader brFile = new BufferedReader(new FileReader(
+																	"C:\\Users\\Amphisoft\\git\\E-Commerce_App\\E-com\\src\\main\\java\\ProductList.csv"));
+															productBO.fileUpload(brFile);
+															System.out.println("File Uploaded Successfully");
+															System.out.println("Do you want to create another Product");
+															yesOrNoValue_4 = br.readLine();
+														} while (yesOrNoValue_4.equalsIgnoreCase("yes"));
+														break;
+													case 3:
+														String yesOrNoValue_9 = "yes";
+														Product updateProductObject_5 = null;
+														do {
+															System.out.println("Enter the Product Name");
+															String updateProductName = br.readLine();
+															updateProductObject_5 = productBO.checkProduct(updateProductName);
+															if(updateProductObject_5!=null) {
+																getProductQuantity(updateProductObject_5);
+																System.out.println("Product Created Successfully");
+																System.out.println("Do you want to update another Product");
+																yesOrNoValue_9 = br.readLine();
+															}
+															else {
+																System.out.println("No Product Found");
+															}
+															
+														} while (yesOrNoValue_9.equalsIgnoreCase("yes"));
+														break;
+												}
+												break;
+
+										}
+										break;
+									case 3:
+										System.out.println("1. User\t\t" + "2. Address\t\t" + "3. Product\t\t");
+
+										switch (Integer.parseInt(br.readLine())) {
+											case 1:
+												User deleteUserObject_2 = null;
+												String deleteUserName_2 = br.readLine();
+												deleteUserObject_2 = userBO.checkUser(deleteUserName_2);
+												userBO.delete(deleteUserObject_2);
+												break;
+
+										}
+										break;
+
+									default:
+										System.out.println("Session Closed ! !");
+										System.exit(0);
+								}
+								break;
+							case 2:
+								System.out.println("1. Purchasing multiple products\r\n"
+										+ "2. Showing Purchase History\r\n"
+										+ "3. Show Product wise Purchase history\r\n"
+										+ "4. Rate a Product\r\n"
+										+ "5. See ratings for a product");
+								
+								switch(Integer.parseInt(br.readLine())) {
+									case 1:
+										List<ProductType> productTypeList = productTypeBO.list();
+										for(int i=0;i<productTypeList.size();i++) {
+											System.out.println(productTypeList.get(i).getName());
+										}
+										Integer productTypechoise = Integer.parseInt(br.readLine());
+										for(int i=0;i<productTypeList.get(productTypechoise).getProductList().size();i++) {
+											System.out.println(productTypeList.get(productTypechoise).getProductList().get(i).getName());
+										}
+										
+								}
+						}
+					} while (true);
+				}
+			}
+			catch(Exception e) {
+				System.out.println();
+				System.out.println(e);
+			}
 		} while (userRoll == null);
 
 	}
