@@ -12,46 +12,40 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(
-        uniqueConstraints=
-            @UniqueConstraint(columnNames={"name"})
-    )
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
 public class Product {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(name ="name")
+
+	@Column(name = "name")
 	private String name;
-	
-	@Column(name ="price")
+
+	@Column(name = "price")
 	private Double price;
-	
-	@Column(name ="colour")
+
+	@Column(name = "colour")
 	private String colour;
-	
-	@Column(name ="Brand")
+
+	@Column(name = "Brand")
 	private String Brand;
-	
-	@Column(name ="quantity")
+
+	@Column(name = "quantity")
 	private Integer Quantity;
 
-	@Column(name ="rating")
+	@Column(name = "rating")
 	private Double Rating;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "product_type")
+	@JoinColumn(name = "product_type_id")
 	private ProductType productType;
 
-	
-	
-	public Product(){
-		
+	public Product() {
+
 	}
-		
-	public Product(String name, Double price, String colour, String brand, Integer quantity,
-			ProductType productType) {
+
+	public Product(String name, Double price, String colour, String brand, Integer quantity, ProductType productType) {
 		super();
 		this.name = name;
 		this.price = price;
@@ -60,8 +54,6 @@ public class Product {
 		Quantity = quantity;
 		this.productType = productType;
 	}
-
-
 
 	public ProductType getProductType() {
 		return productType;
@@ -74,37 +66,43 @@ public class Product {
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public Double getPrice() {
 		return price;
 	}
+
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-	
+
 	public String getColour() {
 		return colour;
 	}
+
 	public void setColour(String colour) {
 		this.colour = colour;
 	}
-	
+
 	public String getBrand() {
 		return Brand;
 	}
+
 	public void setBrand(String brand) {
 		Brand = brand;
 	}
+
 	public Integer getQuantity() {
 		return Quantity;
 	}
@@ -114,12 +112,11 @@ public class Product {
 	}
 
 	public Double getRating() {
-		return Rating ;
+		return Rating;
 	}
 
 	public void setRating(Double Rating) {
 		this.Rating = Rating;
 	}
-	
-	
+
 }

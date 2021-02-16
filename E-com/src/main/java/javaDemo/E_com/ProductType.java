@@ -29,7 +29,6 @@ public class ProductType {
 	}
 	
 	public ProductType(String name) {
-		super();
 		this.name = name;
 	}
 

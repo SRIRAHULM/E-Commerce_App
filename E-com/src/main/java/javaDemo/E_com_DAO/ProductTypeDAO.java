@@ -11,7 +11,6 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
 import javaDemo.E_com.ProductType;
-import javaDemo.E_com.User;
 
 public class ProductTypeDAO {
 	
@@ -33,4 +32,17 @@ public class ProductTypeDAO {
         return stallList;
         
     }
+
+
+	public void create(ProductType productObject) {
+		SessionFactory sf = con.buildSessionFactory(reg);
+        Session session = sf.openSession();
+        Transaction tx = session.beginTransaction();
+        session.saveOrUpdate(productObject);
+        tx.commit();
+        session.close();
+		
+	}
+	
+	
 }
