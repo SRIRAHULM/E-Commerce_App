@@ -9,6 +9,7 @@ import javaDemo.E_com_BO.ProductTypeBO;
 import javaDemo.E_com_BO.UserBO;
 
 public class App {
+	
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static UserBO userBO = new UserBO();
 	static AddressBO addressBO = new AddressBO();
@@ -49,6 +50,7 @@ public class App {
 										switch (Integer.parseInt(br.readLine())) {
 
 											case 1:
+												
 												String yesOrNo_Value_createUser = "yes";
 												do {
 													User newUserObject = new User();
@@ -479,13 +481,35 @@ public class App {
 	}
 
 	private static void userMail(User newUserObject) throws Exception {
-
-		System.out.println("E-mail");
-		String newEmail = br.readLine();
-		newUserObject.setEmail(newEmail);
-		if (userBO.checkUserUpdateOrCreate(newUserObject) != 1) {
-			userBO.create(newUserObject);
-		}
+		Integer checkValue = 0;
+		do {
+			System.out.println("E-mail");
+			String newEmail = br.readLine();
+			
+			if(userBO.noValueFound(newEmail)) {
+				System.out.println("WARNING !!!\nThe Input is Empty");
+			}
+			else {
+				if(!userBO.checkUserEMail(newEmail)) {
+					System.out.println("Please Enter Valid E-mail Address");
+				}
+				else {
+					if(userBO.checkDuplicateEmail(newEmail)) {
+						System.out.println("Email Address Already Exit \nPlease Enter new Email address");
+					}
+					else
+					{
+						checkValue = 1;
+						newUserObject.setEmail(newEmail);
+						if (userBO.checkUserUpdateOrCreate(newUserObject) != 1) {
+							userBO.create(newUserObject);
+						}
+					}
+				}
+			}
+		}while(checkValue == 0);
+		
+		
 
 	}
 
