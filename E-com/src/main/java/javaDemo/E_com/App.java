@@ -472,11 +472,23 @@ public class App {
 	private static void userName(User newUserObject) throws Exception {
 
 		System.out.println("Name");
-		String newName = br.readLine();
-		newUserObject.setName(newName);
-		if (userBO.checkUserUpdateOrCreate(newUserObject) != 1) {
-			userBO.create(newUserObject);
-		}
+		Integer checkValue = 0;
+		do {
+			
+			String newName = br.readLine();
+			newUserObject.setName(newName);
+			if(userBO.noValueFound(newName)) {
+				System.out.println("WARNING !!!\nThe Input is Empty");
+			}
+			else {
+				checkValue = 1;
+				if (userBO.checkUserUpdateOrCreate(newUserObject) != 1) {
+					userBO.create(newUserObject);
+				}
+			}
+			
+		}while(checkValue == 0);
+		
 
 	}
 
@@ -516,18 +528,27 @@ public class App {
 	private static void userUserName(User newUserObject) throws Exception {
 
 		Boolean returnUserName = null;
-
+		Integer checkValue = 0;
 		do {
 
 			System.out.println("User Name");
 			String newUserName = br.readLine();
-			returnUserName = userBO.checkDuplicateUser(newUserName);
-			newUserObject.setUserName(newUserName);
-			if (userBO.checkUserUpdateOrCreate(newUserObject) != 1) {
-				userBO.create(newUserObject);
+			
+			if(userBO.noValueFound(newUserName)) {
+				System.out.println("WARNING !!!\nThe Input is Empty");
 			}
+			else {
+				checkValue = 1;
+				returnUserName = userBO.checkDuplicateUser(newUserName);
+				newUserObject.setUserName(newUserName);
+				if (userBO.checkUserUpdateOrCreate(newUserObject) != 1) {
+					userBO.create(newUserObject);
+				}
+			}
+			
+			
 
-		} while (returnUserName == false);
+		} while (returnUserName == false || (checkValue == 0));
 	}
 
 	private static void userMobileNumber(User newUserObject) throws Exception {
