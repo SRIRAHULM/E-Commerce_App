@@ -9,7 +9,7 @@ import javaDemo.E_com_BO.ProductTypeBO;
 import javaDemo.E_com_BO.UserBO;
 
 public class App {
-	
+
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static UserBO userBO = new UserBO();
 	static AddressBO addressBO = new AddressBO();
@@ -18,7 +18,7 @@ public class App {
 
 	public static void main(String[] args) throws Exception {
 
-		 //initialDataBaseUpdate();
+		//initialDataBaseUpdate();
 
 		String userRoll;
 
@@ -26,7 +26,7 @@ public class App {
 			// call login function to get user name
 			userRoll = login();
 			try {
-				
+
 				Integer adminOrCustom = 0;
 
 				if (userRoll == null) {
@@ -44,13 +44,13 @@ public class App {
 
 								switch (Integer.parseInt(br.readLine())) {
 									case 1:
-										
+
 										System.out.println("1. User\t\t" + "2. Address\t\t" + "3. Product\t\t");
-										
+
 										switch (Integer.parseInt(br.readLine())) {
 
 											case 1:
-												
+
 												String yesOrNo_Value_createUser = "yes";
 												do {
 													User newUserObject = new User();
@@ -60,7 +60,7 @@ public class App {
 													yesOrNo_Value_createUser = br.readLine();
 												} while (yesOrNo_Value_createUser.equalsIgnoreCase("yes"));
 												break;
-
+												
 											case 2:
 
 												String yesOrNo_Value_createProduct = "yes";
@@ -84,6 +84,7 @@ public class App {
 												} while (yesOrNo_Value_createProduct.equalsIgnoreCase("yes")
 														|| updateuserObject_1 == null);
 												break;
+												
 											case 3:
 												System.out.println("1. Single Upload\t\t" + "2. Bulk Upload\t\t");
 
@@ -112,7 +113,6 @@ public class App {
 												break;
 										}
 										break;
-									
 
 									case 2:
 										System.out.println("1. User\t\t" + "2. Address\t\t" + "3. Product\t\t");
@@ -160,7 +160,8 @@ public class App {
 																createAddress(updateuserObject_2, new Address());
 																userBO.create(updateuserObject_2);
 															}
-															System.out.println("Do you want to change any other Address");
+															System.out
+																	.println("Do you want to change any other Address");
 															yesOrNoValue_6 = br.readLine();
 														} else {
 															for (int i = 0; i < updateuserObject_2.getListOfAddress()
@@ -172,11 +173,13 @@ public class App {
 																		"==========================================");
 															}
 															System.out.println("Which Address do you want to change");
-															Integer addressChangeChoise = Integer.parseInt(br.readLine());
+															Integer addressChangeChoise = Integer
+																	.parseInt(br.readLine());
 															createAddress(updateuserObject_2, updateuserObject_2
 																	.getListOfAddress().get(addressChangeChoise - 1));
 															userBO.create(updateuserObject_2);
-															System.out.println("Do you want to change any other Address");
+															System.out
+																	.println("Do you want to change any other Address");
 															yesOrNoValue_6 = br.readLine();
 														}
 
@@ -187,7 +190,8 @@ public class App {
 												break;
 
 											case 3:
-												System.out.println("1. Single Update\t\t" + "2. Bulk Update\t\t " +"3. Update Stock of the Product");
+												System.out.println("1. Single Update\t\t" + "2. Bulk Update\t\t "
+														+ "3. Update Stock of the Product");
 
 												switch (Integer.parseInt(br.readLine())) {
 													case 1:
@@ -196,20 +200,21 @@ public class App {
 														do {
 															System.out.println("Enter the Product Name");
 															String updateProductName = br.readLine();
-															updateProductObject = productBO.checkProduct(updateProductName);
-															if(updateProductObject!=null) {
+															updateProductObject = productBO
+																	.checkProduct(updateProductName);
+															if (updateProductObject != null) {
 																System.out.println(
 																		"Select the field to be update\n1. Name\n2. Price\n3. Brand\n"
 																				+ "4. Quantity\n5. Colour\n6.ProductType\n7.ALL");
 																updateProduct(updateProductObject);
 																System.out.println("Product Created Successfully");
-																System.out.println("Do you want to update another Product");
+																System.out.println(
+																		"Do you want to update another Product");
 																yesOrNoValue_3 = br.readLine();
-															}
-															else {
+															} else {
 																System.out.println("No Product Found");
 															}
-															
+
 														} while (yesOrNoValue_3.equalsIgnoreCase("yes"));
 														break;
 													case 2:
@@ -229,17 +234,18 @@ public class App {
 														do {
 															System.out.println("Enter the Product Name");
 															String updateProductName = br.readLine();
-															updateProductObject_5 = productBO.checkProduct(updateProductName);
-															if(updateProductObject_5!=null) {
+															updateProductObject_5 = productBO
+																	.checkProduct(updateProductName);
+															if (updateProductObject_5 != null) {
 																getProductQuantity(updateProductObject_5);
 																System.out.println("Product Created Successfully");
-																System.out.println("Do you want to update another Product");
+																System.out.println(
+																		"Do you want to update another Product");
 																yesOrNoValue_9 = br.readLine();
-															}
-															else {
+															} else {
 																System.out.println("No Product Found");
 															}
-															
+
 														} while (yesOrNoValue_9.equalsIgnoreCase("yes"));
 														break;
 												}
@@ -267,29 +273,29 @@ public class App {
 								}
 								break;
 							case 2:
-								System.out.println("1. Purchasing multiple products\r\n"
-										+ "2. Showing Purchase History\r\n"
-										+ "3. Show Product wise Purchase history\r\n"
-										+ "4. Rate a Product\r\n"
-										+ "5. See ratings for a product");
-								
-								switch(Integer.parseInt(br.readLine())) {
+								System.out.println(
+										"1. Purchasing multiple products\r\n" + "2. Showing Purchase History\r\n"
+												+ "3. Show Product wise Purchase history\r\n" + "4. Rate a Product\r\n"
+												+ "5. See ratings for a product");
+
+								switch (Integer.parseInt(br.readLine())) {
 									case 1:
 										List<ProductType> productTypeList = productTypeBO.list();
-										for(int i=0;i<productTypeList.size();i++) {
+										for (int i = 0; i < productTypeList.size(); i++) {
 											System.out.println(productTypeList.get(i).getName());
 										}
 										Integer productTypechoise = Integer.parseInt(br.readLine());
-										for(int i=0;i<productTypeList.get(productTypechoise).getProductList().size();i++) {
-											System.out.println(productTypeList.get(productTypechoise).getProductList().get(i).getName());
+										for (int i = 0; i < productTypeList.get(productTypechoise).getProductList()
+												.size(); i++) {
+											System.out.println(productTypeList.get(productTypechoise).getProductList()
+													.get(i).getName());
 										}
-										
+
 								}
 						}
 					} while (true);
 				}
-			}
-			catch(Exception e) {
+			} catch (Exception e) {
 				System.out.println();
 				System.out.println(e);
 			}
@@ -321,7 +327,7 @@ public class App {
 			case 7:
 				createproduct(updateProductObject);
 				break;
-				
+
 			default:
 				System.out.println("404 ERROR");
 		}
@@ -331,10 +337,10 @@ public class App {
 	private static void createProductType(Product updateProductObject) throws Exception {
 		System.out.println("Product Type");
 		String productType = br.readLine();
-		
+
 		updateProductObject.setProductType(productTypeBO.findProductType(productType));
 		productTypeBO.findProductType(productType).getProductList().add(updateProductObject);
-		
+
 	}
 
 	private static void getProductColour(Product updateProductObject) throws Exception {
@@ -346,7 +352,7 @@ public class App {
 	private static void getProductQuantity(Product updateProductObject) throws Exception {
 		System.out.println("Product Quantity");
 		Integer productQuantity = Integer.parseInt(br.readLine());
-		updateProductObject.setQuantity(updateProductObject.getQuantity()+productQuantity);
+		updateProductObject.setQuantity(updateProductObject.getQuantity() + productQuantity);
 		productBO.create(updateProductObject);
 	}
 
@@ -387,10 +393,10 @@ public class App {
 		newProductObject.setQuantity(productQuantity);
 		System.out.println("Product Type");
 		String productType = br.readLine();
-		
+
 		newProductObject.setProductType(productTypeBO.findProductType(productType));
 		productTypeBO.findProductType(productType).getProductList().add(newProductObject);
-		
+
 		productBO.create(newProductObject);
 
 	}
@@ -474,21 +480,19 @@ public class App {
 		System.out.println("Name");
 		Integer checkValue = 0;
 		do {
-			
 			String newName = br.readLine();
 			newUserObject.setName(newName);
-			if(userBO.noValueFound(newName)) {
+			if (userBO.noValueFound(newName)) {
 				System.out.println("WARNING !!!\nThe Input is Empty");
-			}
-			else {
+				checkValue = 0;
+			} else {
 				checkValue = 1;
 				if (userBO.checkUserUpdateOrCreate(newUserObject) != 1) {
 					userBO.create(newUserObject);
 				}
 			}
-			
-		}while(checkValue == 0);
-		
+
+		} while (checkValue == 0);
 
 	}
 
@@ -497,20 +501,16 @@ public class App {
 		do {
 			System.out.println("E-mail");
 			String newEmail = br.readLine();
-			
-			if(userBO.noValueFound(newEmail)) {
+
+			if (userBO.noValueFound(newEmail)) {
 				System.out.println("WARNING !!!\nThe Input is Empty");
-			}
-			else {
-				if(!userBO.checkUserEMail(newEmail)) {
+			} else {
+				if (!userBO.checkUserEMail(newEmail)) {
 					System.out.println("Please Enter Valid E-mail Address");
-				}
-				else {
-					if(userBO.checkDuplicateEmail(newEmail)) {
+				} else {
+					if (userBO.checkDuplicateEmail(newEmail)) {
 						System.out.println("Email Address Already Exit \nPlease Enter new Email address");
-					}
-					else
-					{
+					} else {
 						checkValue = 1;
 						newUserObject.setEmail(newEmail);
 						if (userBO.checkUserUpdateOrCreate(newUserObject) != 1) {
@@ -519,9 +519,7 @@ public class App {
 					}
 				}
 			}
-		}while(checkValue == 0);
-		
-		
+		} while (checkValue == 0);
 
 	}
 
@@ -533,11 +531,11 @@ public class App {
 
 			System.out.println("User Name");
 			String newUserName = br.readLine();
-			
-			if(userBO.noValueFound(newUserName)) {
+
+			if (userBO.noValueFound(newUserName)) {
 				System.out.println("WARNING !!!\nThe Input is Empty");
-			}
-			else {
+				checkValue = 0;
+			} else {
 				checkValue = 1;
 				returnUserName = userBO.checkDuplicateUser(newUserName);
 				newUserObject.setUserName(newUserName);
@@ -545,8 +543,6 @@ public class App {
 					userBO.create(newUserObject);
 				}
 			}
-			
-			
 
 		} while (returnUserName == false || (checkValue == 0));
 	}
@@ -554,58 +550,62 @@ public class App {
 	private static void userMobileNumber(User newUserObject) throws Exception {
 
 		Boolean returnUserPassword = false;
-		while (returnUserPassword != true) {
-
+		Integer checkValue = 0;
+		do  {
 			System.out.println("Mobile Number");
 			String newMobileNumber = br.readLine();
-			returnUserPassword = userBO.checkUserMobileNumber(newMobileNumber);
-			if (returnUserPassword == true) {
-				newUserObject.setMobileNo(newMobileNumber);
-				if (userBO.checkUserUpdateOrCreate(newUserObject) != 1) {
-					userBO.create(newUserObject);
-				}
+			if (userBO.noValueFound(newMobileNumber)) {
+				System.out.println("WARNING !!!\nThe Input is Empty");
+				checkValue = 0;
 			} else {
-				System.out.println(newUserObject.getId());
-				System.out.println("Enter Valid Mobile Number\n");
+				returnUserPassword = userBO.checkUserMobileNumber(newMobileNumber);
+				if (returnUserPassword == true) {
+					checkValue = 1;
+					newUserObject.setMobileNo(newMobileNumber);
+					if (userBO.checkUserUpdateOrCreate(newUserObject) != 1) {
+						userBO.create(newUserObject);
+					}
+				} else {
+					System.out.println(newUserObject.getId());
+					System.out.println("Enter Valid Mobile Number\n");
+				}
 			}
-		}
+			
+		}while(returnUserPassword != true || checkValue == 0);
 	}
 
 	private static void userPassword(User newUserObject) throws Exception {
 
 		Boolean returnUserPassword = false;
-		while (returnUserPassword != true) {
-
+		Integer checkValue = 0;
+		do {
 			System.out.println("Password");
 			String newPassword = br.readLine();
-			returnUserPassword = userBO.checkUserPassword(newPassword);
-			if (returnUserPassword == true) {
-				newUserObject.setPassword(newPassword);
-				if (userBO.checkUserUpdateOrCreate(newUserObject) != 1) {
-					userBO.create(newUserObject);
-				}
+			if (userBO.noValueFound(newPassword)) {
+				System.out.println("WARNING !!!\nThe Input is Empty");
+				checkValue = 0;
 			} else {
-				System.out.println("Password Length is too weak\n");
+				returnUserPassword = userBO.checkUserPassword(newPassword);
+				if (returnUserPassword == true) {
+					checkValue = 1;
+					newUserObject.setPassword(newPassword);
+					if (userBO.checkUserUpdateOrCreate(newUserObject) != 1) {
+						userBO.create(newUserObject);
+					}
+				} else {
+					System.out.println("Password Length is too weak\n");
+				}
 			}
-		}
+			
+		}while (returnUserPassword != true || checkValue == 0);
 	}
 
 	private static void userRoll(User newUserObject) throws Exception {
 
-		Boolean returnUserRoll = false;
-		while (returnUserRoll != true) {
-
-			System.out.println("Roll (ADMIN/CUSTOMER)");
-			String newRoll = br.readLine();
-			returnUserRoll = userBO.checkUserROll(newRoll);
-			if (returnUserRoll == true) {
-				newUserObject.setRole(newRoll);
-				if (userBO.checkUserUpdateOrCreate(newUserObject) != 1) {
-					userBO.create(newUserObject);
-				}
-			} else {
-				System.out.println("Enter Valid Roll\n");
-			}
+		String newRoll = "CUSTOMER";	
+		newUserObject.setRole(newRoll);
+		if (userBO.checkUserUpdateOrCreate(newUserObject) != 1) {
+			userBO.create(newUserObject);
 		}
 	}
 
@@ -642,7 +642,7 @@ public class App {
 
 		addressBO.create(addressObject_1);
 		addressBO.create(addressObject_2);
-		
+
 		ProductType productTypeObject = new ProductType();
 		BufferedReader brFile = new BufferedReader(new FileReader(
 				"C:\\Users\\Amphisoft\\git\\E-Commerce_App\\E-com\\src\\main\\java\\ProductTypeFile.csv"));

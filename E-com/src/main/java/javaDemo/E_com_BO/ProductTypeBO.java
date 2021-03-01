@@ -12,7 +12,7 @@ public class ProductTypeBO {
 	ProductTypeDAO productTypeDAO = new ProductTypeDAO(); 
 	
 	public List<ProductType>  list() {
-		 
+		productTypeDAO.set();
 		return productTypeDAO.list();
 		
 	}

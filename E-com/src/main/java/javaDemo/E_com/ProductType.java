@@ -21,12 +21,10 @@ public class ProductType {
 	@Column(name = "name")
 	private String name;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "productType")
+	@OneToMany(fetch = FetchType.EAGER)
 	private List<Product> productList = new ArrayList<Product>();
 
-	public ProductType() {
-		
-	}
+	public ProductType() {}
 	
 	public ProductType(String name) {
 		this.name = name;

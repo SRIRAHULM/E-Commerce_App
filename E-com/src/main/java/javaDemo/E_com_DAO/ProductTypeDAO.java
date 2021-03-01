@@ -1,7 +1,9 @@
 package javaDemo.E_com_DAO;
 
-import java.util.ArrayList;
+import java.util.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -44,5 +46,24 @@ public class ProductTypeDAO {
 		
 	}
 	
+	@SuppressWarnings("unchecked")
+	public Set<ProductType>  set() {
+    	
+    	SessionFactory sf = con.buildSessionFactory(reg);
+        Session session = sf.openSession();
+        Transaction tx = session.beginTransaction();
+    	
+        HashSet<ProductType> stallList = new HashSet<ProductType>();
+        stallList=(HashSet<ProductType>) session.createCriteria(ProductType.class).list();
+        tx.commit();
+        for(ProductType X : stallList) {
+        	System.out.println(X.getName());
+        }
+        session.close();
+        return stallList;
+        
+        
+        
+    }
 	
 }
