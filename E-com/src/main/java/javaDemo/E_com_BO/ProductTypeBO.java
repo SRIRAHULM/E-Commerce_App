@@ -12,7 +12,6 @@ public class ProductTypeBO {
 	ProductTypeDAO productTypeDAO = new ProductTypeDAO(); 
 	
 	public List<ProductType>  list() {
-		productTypeDAO.set();
 		return productTypeDAO.list();
 		
 	}
@@ -30,10 +29,10 @@ public class ProductTypeBO {
 			}
 		}
 		
-		if(flag==0) {
+		/*if(flag==0) {
 			ProductType newProductTypeObject = new ProductType(productTypeName);
 			productTypeObject = newProductTypeObject;
-		}
+		}*/
 		
 		return productTypeObject;
 	}

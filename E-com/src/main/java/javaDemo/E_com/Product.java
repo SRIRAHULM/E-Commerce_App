@@ -120,4 +120,11 @@ public class Product {
 		this.Rating = Rating;
 	}
 
+	@Override
+	public String toString() {
+		return "Product [name=" + name + ", price=" + price + ", colour=" + colour + ", Brand=" + Brand + ", Quantity="
+				+ Quantity + ", Rating=" + Rating + ", productType=" + productType.getName() + "]";
+	}
+
+	
 }

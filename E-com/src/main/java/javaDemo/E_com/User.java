@@ -36,6 +36,7 @@ public class User {
 	private String Role;
 	
 	@OneToMany(fetch = FetchType.EAGER,mappedBy = "user" )
+	
 	private List<Address> listOfAddress = new ArrayList<Address>();
 	
 	User(){}

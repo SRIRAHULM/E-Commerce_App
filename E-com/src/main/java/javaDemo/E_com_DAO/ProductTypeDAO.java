@@ -45,25 +45,6 @@ public class ProductTypeDAO {
         session.close();
 		
 	}
-	
-	@SuppressWarnings("unchecked")
-	public Set<ProductType>  set() {
-    	
-    	SessionFactory sf = con.buildSessionFactory(reg);
-        Session session = sf.openSession();
-        Transaction tx = session.beginTransaction();
-    	
-        HashSet<ProductType> stallList = new HashSet<ProductType>();
-        stallList=(HashSet<ProductType>) session.createCriteria(ProductType.class).list();
-        tx.commit();
-        for(ProductType X : stallList) {
-        	System.out.println(X.getName());
-        }
-        session.close();
-        return stallList;
-        
-        
-        
-    }
+       
 	
 }
