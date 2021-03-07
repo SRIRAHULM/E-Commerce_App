@@ -9,7 +9,7 @@ import javaDemo.E_com_EXCEPTION.DuplicateUserNameException;
 public class UserBO {
 	UserDAO userDAO = new UserDAO();
 	AddressBO addressBO = new AddressBO();
-	
+	User loginUser=null;
 	
 	public Boolean checkUserROll(String newRoll) {
 		
@@ -39,12 +39,16 @@ public class UserBO {
 	     String value = null;
 	     for(int i=0; i<userList.size();i++) {
 	        if((userName.equals(userList.get(i).getUserName())) && (password.equals(userList.get(i).getPassword()))) {
+	        	loginUser =userList.get(i);
 	        	value =  userList.get(i).getRole();
 	        }
 	     }
 		return value;
 	 }
 	 
+	 public User loginUser() {
+		 return loginUser;
+	 }
 	 
 	 public void create(User user) throws DuplicateUserNameException  {
 		 	

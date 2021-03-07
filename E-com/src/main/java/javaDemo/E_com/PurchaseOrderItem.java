@@ -38,7 +38,7 @@ public class PurchaseOrderItem {
 		this.quantity = quantity;
 		this.unitPrice = unitPrice;
 		this.purchaseOrder = purchaseOrder;
-	}
+	} 
 	
 	public Double getQuantity() {
 		return quantity;

@@ -130,7 +130,7 @@ public class App {
 											System.out.println((i+1)+" -- "+productTypeList.get(i).getName());
 										}
 										Integer productTypeChoise = Integer.parseInt(br.readLine())-1;
-										
+										 
 										for (int i = 0; i < productTypeList.get(productTypeChoise).getProductList()
 												.size(); i++) {
 											System.out.println((i+1)+" -- "+productTypeList.get(productTypeChoise).getProductList()
@@ -138,7 +138,19 @@ public class App {
 										}
 										Integer productChoise = Integer.parseInt(br.readLine())-1;
 										System.out.println(productTypeList.get(productTypeChoise).getProductList().get(productChoise));
-								}
+										System.out.println("1. Buy\n2. Add to Card\n3. Back");
+										
+										if(br.readLine().equalsIgnoreCase("Yes")) {
+											PurchaseOrder purchaceOrderObj = new PurchaseOrder();
+											PurchaseOrderItem purchaseOrderItemObj = new PurchaseOrderItem();
+											purchaceOrderObj.setUser(userBO.loginUser());
+											purchaceOrderObj.setAddress(userBO.loginUser().getListOfAddress().get(0));
+											purchaseOrderItemObj.setProduct(productTypeList.get(productTypeChoise).getProductList().get(productChoise));
+											purchaseOrderItemObj.setQuantity(2.00);
+											purchaseOrderItemObj.setPurchaseOrder(purchaceOrderObj);
+											purchaseOrderItemObj.setUnitPrice(productTypeList.get(productTypeChoise).getProductList().get(productChoise).getPrice());
+										}
+								} 
 						}
 					} while (true);
 				}
